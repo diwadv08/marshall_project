@@ -288,11 +288,30 @@
         track.scrollTo({ left: slides[target].offsetLeft - track.offsetLeft, behavior: behavior });
         setCurrent(target);
       }
+      var autoplayTimer;
+      var scrollEndTimer;
+      function pauseAutoplay() {
+        window.clearTimeout(autoplayTimer);
+        autoplayTimer = null;
+      }
+      function scheduleAutoplay() {
+        pauseAutoplay();
+        if (slides.length < 2 || document.hidden ||
+            window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+            swiper.contains(document.activeElement) ||
+            (window.matchMedia('(hover: hover)').matches && swiper.matches(':hover'))) return;
+        autoplayTimer = window.setTimeout(function () {
+          goTo(current + 1);
+          scheduleAutoplay();
+        }, 5000);
+      }
       $('[data-testimonial-step="-1"]', swiper).addEventListener('click', function () { goTo(current - 1); });
       $('[data-testimonial-step="1"]', swiper).addEventListener('click', function () { goTo(current + 1); });
       dots.forEach(function (dot, i) { dot.addEventListener('click', function () { goTo(i); }); });
       track.addEventListener('scroll', function () {
         if (track.clientWidth) setCurrent(Math.round(track.scrollLeft / track.clientWidth));
+        window.clearTimeout(scrollEndTimer);
+        scrollEndTimer = window.setTimeout(scheduleAutoplay, 140);
       }, { passive: true });
       track.addEventListener('keydown', function (e) {
         if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
@@ -300,6 +319,17 @@
           goTo(current + (e.key === 'ArrowRight' ? 1 : -1));
         }
       });
+      swiper.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') pauseAutoplay(); });
+      swiper.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') scheduleAutoplay(); });
+      swiper.addEventListener('focusin', pauseAutoplay);
+      swiper.addEventListener('focusout', function (e) {
+        if (!swiper.contains(e.relatedTarget)) scheduleAutoplay();
+      });
+      track.addEventListener('touchstart', pauseAutoplay, { passive: true });
+      track.addEventListener('touchend', scheduleAutoplay, { passive: true });
+      track.addEventListener('touchcancel', scheduleAutoplay, { passive: true });
+      document.addEventListener('visibilitychange', scheduleAutoplay);
+      scheduleAutoplay();
     });
   }
 
