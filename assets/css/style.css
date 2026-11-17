@@ -13,7 +13,6 @@
   --font-display: 'Newsreader', 'Source Serif 4', Georgia, 'Times New Roman', serif;
   --ease: cubic-bezier(.2, .7, .2, 1);
 }
-:root,
 :root[data-theme="dark"] {
   --bg: #06121c;
   --bg-2: #0a1b29;
@@ -29,6 +28,7 @@
 
   color-scheme: dark;
 }
+:root,
 :root[data-theme="light"] {
   --bg: #f4f8fc;
   --bg-2: #e9f1f8;
