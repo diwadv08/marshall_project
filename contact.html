@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact Us – Marshall Advertising Company</title>
+  <meta name="description" content="Have a brief, a deadline, or simply an idea you want to explore? Tell Marshall Advertising Company about it.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script>try{document.documentElement.setAttribute('data-theme',localStorage.getItem('marshall_theme')||'dark')}catch(e){}</script>
+</head>
+<body data-page="contact">
+  <div id="site-header"></div>
+
+  <main>
+    <section class="page-banner">
+      <div class="container">
+        <h1>Contact Us</h1>
+        <div class="crumbs"><a href="index.html">Home</a> / Contact Us</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container contact-grid">
+        <div class="reveal">
+          <span class="eyebrow">Let’s make something memorable</span>
+          <h2 class="h2">Let’s connect <em>over coffee.</em></h2>
+          <p class="lead">Have a brief, a deadline, or simply an idea you want to explore? Tell us about it.</p>
+
+          <form class="form" id="contactForm" novalidate>
+            <div class="field">
+              <label class="sr-only" for="cName">Your name</label>
+              <input id="cName" name="name" type="text" placeholder="Your name" autocomplete="name">
+              <div class="err">Please enter your name.</div>
+            </div>
+            <div class="field">
+              <label class="sr-only" for="cEmail">Email address</label>
+              <input id="cEmail" name="email" type="email" placeholder="Email address" autocomplete="email">
+              <div class="err">Please enter a valid email address.</div>
+            </div>
+            <div class="field">
+              <label class="sr-only" for="cPhone">Phone number</label>
+              <input id="cPhone" name="phone" type="tel" placeholder="Phone number" autocomplete="tel">
+              <div class="err">Please enter a valid phone number.</div>
+            </div>
+            <div class="field">
+              <label class="sr-only" for="cMsg">How can we help?</label>
+              <textarea id="cMsg" name="message" placeholder="How can we help?"></textarea>
+              <div class="err">Please tell us a little about your project.</div>
+            </div>
+            <button class="btn" type="submit">Send Message</button>
+            <p class="form-note">We usually reply within one working day.</p>
+          </form>
+        </div>
+
+        <aside class="info-card reveal" aria-label="Contact details">
+          <h2>Marshall Advertising Company</h2>
+          <address data-bind="address"></address>
+          <h4>Phone</h4>
+          <a data-bind="phone1" href="#"></a>
+          <a data-bind="phone2" href="#"></a>
+          <h4>Email</h4>
+          <a data-bind="email" href="#"></a>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
