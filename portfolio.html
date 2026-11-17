@@ -7,7 +7,7 @@
   <meta name="description" content="A cross-section of campaigns, publications and editorial work created for institutions and organisations across India.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cossette+Titre:wght@400;700&family=Inter:wght@400;500;600;700&family=Tangerine:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
   <script>try{document.documentElement.setAttribute('data-theme',localStorage.getItem('marshall_theme')||'dark')}catch(e){}</script>
 </head>
@@ -17,26 +17,17 @@
   <main>
     <section class="page-banner">
       <div class="container">
-        <h1>Our Portfolio</h1>
+        <span class="eyebrow">Selected work</span>
+        <h1>Our <span class="title-highlight">Portfolio</span></h1>
         <div class="crumbs"><a href="index.html">Home</a> / Portfolio</div>
       </div>
     </section>
 
     <section class="section">
       <div class="container">
-        <div class="section-head reveal" style="align-items:start">
-          <div>
-            <span class="eyebrow">Selected work</span>
-            <h2 class="h2" style="margin:0">Ideas made visible. <em>Stories made memorable.</em></h2>
-          </div>
-          <div>
-            <p class="lead">Explore a cross-section of campaigns, publications and editorial work created for institutions and organisations across India.</p>
-            <div class="stat-row" style="margin-top:18px">
-              <div class="stat"><b data-count="portfolio">24</b><span>Projects</span></div>
-              <div class="stat"><b>3</b><span>Disciplines</span></div>
-              <div class="stat"><b>360°</b><span>Thinking</span></div>
-            </div>
-          </div>
+        <div class="section-head reveal">
+          <span class="eyebrow">Selected work</span>
+          <h2 class="h2" style="margin:0">Ideas made visible. <span class="title-highlight">Stories</span> made memorable.</h2>
         </div>
 
         <div class="pf-tools reveal">
@@ -49,6 +40,7 @@
         </div>
         <p class="pf-count" id="pfCount" aria-live="polite"></p>
         <div class="pf-grid" id="pfGrid"></div>
+        <nav class="pf-pagination" id="pfPagination" aria-label="Portfolio pages"></nav>
         <p class="pf-empty" id="pfEmpty">No projects match your search. Try a different keyword.</p>
       </div>
     </section>

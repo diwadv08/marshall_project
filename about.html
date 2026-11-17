@@ -7,7 +7,8 @@
   <meta name="description" content="A full-service INS accredited advertising and communications agency with decades of experience.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="assets/images/abt-img.jpg">
+  <link href="https://fonts.googleapis.com/css2?family=Cossette+Titre:wght@400;700&family=Inter:wght@400;500;600;700&family=Tangerine:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
   <script>try{document.documentElement.setAttribute('data-theme',localStorage.getItem('marshall_theme')||'dark')}catch(e){}</script>
 </head>
@@ -17,7 +18,8 @@
   <main>
     <section class="page-banner">
       <div class="container">
-        <h1>About Us</h1>
+        <span class="eyebrow">The people behind the work</span>
+        <h1>About <span class="title-highlight">Us</span></h1>
         <div class="crumbs"><a href="index.html">Home</a> / About Us</div>
       </div>
     </section>
@@ -60,19 +62,21 @@
 
     <section class="section" id="clients">
       <div class="container section-head reveal" style="margin-bottom:34px">
-        <div><span class="eyebrow">Relationships that last</span><h2 class="h2" style="margin:0">Our Clients</h2></div>
-        <p class="lead" style="justify-self:end;margin:0">Trusted by institutions and organisations across sectors.</p>
+        <span class="eyebrow">Relationships that last</span>
+        <h2 class="h2" style="margin:0">Our <span class="title-highlight">Clients</span></h2>
       </div>
-      <div class="marquee" data-render="clients" aria-label="Client list"></div>
+      <div class="container">
+        <div class="client-grid" data-render="clients" role="list" aria-label="Our clients"></div>
+      </div>
     </section>
 
     <section class="section alt" id="testimonials">
       <div class="container">
-        <div class="center reveal">
-          <h2 class="h2">What Our <em>Clients</em> Say</h2>
-          <div class="quote-mark" aria-hidden="true">“</div>
+        <div class="section-head center reveal">
+          <span class="eyebrow">Client stories</span>
+          <h2 class="h2">What Our <span class="title-highlight">Clients</span> Say</h2>
         </div>
-        <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(290px,1fr))" data-render="testimonials" data-filter="all"></div>
+        <div data-render="testimonials" data-filter="all"></div>
       </div>
     </section>
 

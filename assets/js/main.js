@@ -39,18 +39,9 @@
   function icon(n) { return ICONS[n] || ICONS.news; }
 
   function logo(id) {
-    return '<svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="' + id + '" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#19b4f5"/><stop offset="1" stop-color="#0069c2"/></linearGradient></defs><circle cx="24" cy="24" r="22" fill="url(#' + id + ')"/><path d="M11 33V15l13 13 13-13v18" fill="none" stroke="#fff" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round"/></svg>';
+    return '<svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="#275a8f"/><path d="M11 33V15l13 13 13-13v18" fill="none" stroke="#fff" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round"/></svg>';
   }
   var BRAND_TEXT = '<span class="brand-text"><b>MARSHALL</b><small>Advertising Company</small></span>';
-
-  var BULB = '<svg viewBox="0 0 400 440" role="img" aria-label="Colourful light bulb illustration"><defs>' +
-    '<linearGradient id="b1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#00c2ff"/><stop offset=".45" stop-color="#5b6cff"/><stop offset="1" stop-color="#ff4d8d"/></linearGradient>' +
-    '<linearGradient id="b2" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#f7b500"/><stop offset="1" stop-color="#3ddc97"/></linearGradient></defs>' +
-    '<path d="M200 28c-82 0-138 62-138 136 0 50 24 80 48 106 14 15 20 28 20 48v10h140v-10c0-20 6-33 20-48 24-26 48-56 48-106C338 90 282 28 200 28z" fill="none" stroke="currentColor" stroke-opacity=".35" stroke-width="5"/>' +
-    '<path d="M106 150c20-60 76-80 124-60 40 17 62 54 46 92-12 28-50 24-60 52-8 22 10 36-12 48-26 14-84-10-104-56-10-24-6-56 6-76z" fill="url(#b1)" opacity=".95"/>' +
-    '<path d="M214 100c40 8 82 30 94 70 10 34-6 60-30 78-18 14-44 6-52 28-6 18 6 30-8 36 40 6 74-14 92-44 26-44 12-102-24-142-20-22-48-32-72-26z" fill="url(#b2)" opacity=".85"/>' +
-    '<circle cx="86" cy="96" r="9" fill="#ff4d8d"/><circle cx="318" cy="70" r="6" fill="#f7b500"/><circle cx="52" cy="190" r="5" fill="#00c2ff"/><circle cx="352" cy="200" r="8" fill="#3ddc97"/>' +
-    '<rect x="150" y="330" width="100" height="18" rx="6" fill="currentColor" fill-opacity=".5"/><rect x="156" y="352" width="88" height="16" rx="6" fill="currentColor" fill-opacity=".38"/><rect x="166" y="372" width="68" height="14" rx="6" fill="currentColor" fill-opacity=".28"/></svg>';
 
   var NAV = [
     ['home', 'Home', 'index.html'],
@@ -89,7 +80,7 @@
       '<footer class="site-footer"><div class="container">' +
       '<nav class="footer-nav" aria-label="Footer">' + links + '</nav>' +
       '<div class="footer-bottom"><span>Copyright © ' + new Date().getFullYear() + '. All rights reserved.</span>' +
-      '<span>Powered by <a href="https://monocomsoft.com" target="_blank" rel="noopener">Monocomsoft</a></span></div>' +
+      '<span>Powered by <a href="https://diwaportfolio.vercel.app/" target="_blank" rel="noopener">Diwa</a></span></div>' +
       '</div></footer>' +
       '<button class="to-top" id="toTop" aria-label="Back to top">' + icon('up') + '</button>' +
       '<div class="toast" id="toast" role="status" aria-live="polite"></div>';
@@ -237,22 +228,21 @@
       var lim = parseInt(el.getAttribute('data-limit'), 10) || D.services.length;
       var v = el.getAttribute('data-variant') || 'spot';
       el.innerHTML = D.services.slice(0, lim).map(function (s, i) {
-        if (v === 'fill') {
-          return '<article class="card c-fill reveal" id="service-' + s.id + '"><span class="k">Service ' + pad(i + 1) + '</span><div class="ico">' + icon(s.icon) + '</div>' +
-            '<h3>' + esc(s.title) + '</h3><p>' + esc(s.desc) + '</p><span class="corner" aria-hidden="true">' + icon('arrow') + '</span></article>';
-        }
-        return '<article class="card c-spot reveal" id="service-' + s.id + '"><span class="num" aria-hidden="true">' + pad(i + 1) + '</span><div class="ico">' + icon(s.icon) + '</div>' +
-          '<h3>' + esc(s.title) + '</h3><p>' + esc(s.desc) + '</p><a class="more" href="services.html#service-' + s.id + '">Explore ' + icon('arrow') + '</a></article>';
+        var variant = v === 'fill' ? 'c-fill' : 'c-spot';
+        return '<article class="card service-card ' + variant + ' reveal" id="service-' + s.id + '">' +
+          '<div class="service-card-top"><span class="service-index">' + pad(i + 1) + ' <i>/ ' + pad(D.services.length) + '</i></span>' +
+          '<span class="ico">' + icon(s.icon) + '</span></div>' +
+          '<h3>' + esc(s.title) + '</h3><p>' + esc(s.desc) + '</p>' +
+          '<a class="service-link" href="services.html#service-' + s.id + '">Explore service ' + icon('arrow') + '</a></article>';
       }).join('');
     });
   }
 
   function renderClients() {
     $$('[data-render="clients"]').forEach(function (el) {
-      var one = D.clients.map(function (c) {
-        return '<div class="client">' + (c.logo ? '<img src="' + esc(c.logo) + '" alt="' + esc(c.name) + '" loading="lazy">' : esc(c.name)) + '</div>';
+      el.innerHTML = D.clients.map(function (c) {
+        return '<div class="client" role="listitem">' + (c.logo ? '<img src="' + esc(c.logo) + '" alt="' + esc(c.name) + '" loading="lazy">' : '<span>' + esc(c.name) + '</span>') + '</div>';
       }).join('');
-      el.innerHTML = '<div class="marquee-track">' + one + one + '</div>';
     });
   }
 
@@ -260,19 +250,62 @@
     $$('[data-render="testimonials"]').forEach(function (el) {
       var only = el.getAttribute('data-filter') === 'home';
       var list = D.testimonials.filter(function (t) { return only ? t.home : true; });
-      el.innerHTML = list.map(function (t) {
-        return '<figure class="card c-quote reveal"><blockquote>' + esc(t.quote) + '</blockquote>' +
-          '<figcaption><span class="avatar" aria-hidden="true">' + esc(initials(t.name)) + '</span><span><b>' + esc(t.name) + '</b><small>' + esc(t.role) + '<br>' + esc(t.org) + '</small></span></figcaption></figure>';
-      }).join('');
+      el.innerHTML =
+        '<div class="testimonial-swiper" role="region" aria-label="What our clients say" aria-roledescription="carousel">' +
+        '<div class="testimonial-track" tabindex="0">' +
+        list.map(function (t, i) {
+          return '<figure class="card c-quote swiper-slide" role="group" aria-roledescription="slide" aria-label="' + (i + 1) + ' of ' + list.length + '">' +
+            '<blockquote>' + esc(t.quote) + '</blockquote>' +
+            '<figcaption><span class="avatar" aria-hidden="true">' + esc(initials(t.name)) + '</span><span><b>' + esc(t.name) + '</b><small>' + esc(t.role) + '<br>' + esc(t.org) + '</small></span></figcaption></figure>';
+        }).join('') +
+        '</div><div class="testimonial-controls">' +
+        '<button class="testimonial-arrow" type="button" data-testimonial-step="-1" aria-label="Previous testimonial"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>' +
+        '<div class="testimonial-pagination" role="group" aria-label="Choose a testimonial">' +
+        list.map(function (t, i) {
+          return '<button class="testimonial-dot' + (i === 0 ? ' is-active' : '') + '" type="button" data-testimonial-index="' + i + '" aria-label="Show testimonial ' + (i + 1) + '"' + (i === 0 ? ' aria-pressed="true"' : ' aria-pressed="false"') + '></button>';
+        }).join('') +
+        '</div><button class="testimonial-arrow" type="button" data-testimonial-step="1" aria-label="Next testimonial"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>' +
+        '</div></div>';
+
+      var swiper = $('.testimonial-swiper', el);
+      var track = $('.testimonial-track', swiper);
+      var slides = $$('.swiper-slide', track);
+      var dots = $$('.testimonial-dot', swiper);
+      var current = 0;
+      function setCurrent(index) {
+        if (!slides.length) return;
+        current = (index + slides.length) % slides.length;
+        dots.forEach(function (dot, i) {
+          var active = i === current;
+          dot.classList.toggle('is-active', active);
+          dot.setAttribute('aria-pressed', active ? 'true' : 'false');
+        });
+      }
+      function goTo(index) {
+        if (!slides.length) return;
+        var target = (index + slides.length) % slides.length;
+        var behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+        track.scrollTo({ left: slides[target].offsetLeft - track.offsetLeft, behavior: behavior });
+        setCurrent(target);
+      }
+      $('[data-testimonial-step="-1"]', swiper).addEventListener('click', function () { goTo(current - 1); });
+      $('[data-testimonial-step="1"]', swiper).addEventListener('click', function () { goTo(current + 1); });
+      dots.forEach(function (dot, i) { dot.addEventListener('click', function () { goTo(i); }); });
+      track.addEventListener('scroll', function () {
+        if (track.clientWidth) setCurrent(Math.round(track.scrollLeft / track.clientWidth));
+      }, { passive: true });
+      track.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+          e.preventDefault();
+          goTo(current + (e.key === 'ArrowRight' ? 1 : -1));
+        }
+      });
     });
   }
 
   function renderArt() {
-    $$('[data-art="bulb"]').forEach(function (el) { el.innerHTML = BULB; });
-    $$('[data-art="poster"]').forEach(function (el) {
-      el.innerHTML = '<div class="inner">' + BULB.replace('<svg', '<svg style="color:#fff"') +
-        '<h3>Converting<br>the abstract<br>into<br>the absolute<span class="gold">That’s Us.</span><span class="blue">Marshall</span></h3></div>';
-    });
+    var artwork = '<img class="brand-art-image" src="assets/images/abt-img.jpg" alt="Marshall Advertising colourful lightbulb campaign artwork">';
+    $$('[data-art="bulb"], [data-art="poster"]').forEach(function (el) { el.innerHTML = artwork; });
   }
 
   function renderBindings() {
@@ -294,20 +327,20 @@
   var lb;
   function closeLb() { if (lb) lb.classList.remove('open'); }
 
-  function thumb(p, i, big) {
-    var h = (i * 47 + 190) % 360;
-    return '<div class="pf-thumb" style="--h:' + h + '">' +
+  function thumb(p) {
+    return '<div class="pf-thumb' + (p.img ? '' : ' is-placeholder') + '">' +
       (p.img ? '<img src="' + esc(p.img) + '" alt="' + esc(p.title) + '" loading="lazy">' : '') +
-      '<span class="no">' + pad(i + 1) + '</span>' +
-      (p.img && !big ? '' : '<span class="big">' + (p.img ? '' : esc(p.title)) + '</span>') + '</div>';
+      '</div>';
   }
 
   function initPortfolio() {
     var grid = $('#pfGrid');
     if (!grid) return;
-    var tabsEl = $('#pfTabs'), q = $('#pfSearch'), count = $('#pfCount'), empty = $('#pfEmpty');
+    var tabsEl = $('#pfTabs'), q = $('#pfSearch'), count = $('#pfCount'), empty = $('#pfEmpty'), pagination = $('#pfPagination');
     var cats = ['All work'].concat(D.portfolio.map(function (p) { return p.cat; }).filter(function (c, i, a) { return a.indexOf(c) === i; }));
     var cur = 'All work';
+    var pageSize = 8;
+    var currentPage = 1;
 
     tabsEl.innerHTML = cats.map(function (c) {
       var n = c === 'All work' ? D.portfolio.length : D.portfolio.filter(function (p) { return p.cat === c; }).length;
@@ -319,24 +352,45 @@
       var list = D.portfolio.map(function (p, i) { return { p: p, i: i }; }).filter(function (o) {
         return (cur === 'All work' || o.p.cat === cur) && (!term || (o.p.title + ' ' + o.p.tag).toLowerCase().indexOf(term) > -1);
       });
-      grid.innerHTML = list.map(function (o) {
+      var pageCount = Math.max(1, Math.ceil(list.length / pageSize));
+      currentPage = Math.min(currentPage, pageCount);
+      var start = (currentPage - 1) * pageSize;
+      var pageItems = list.slice(start, start + pageSize);
+      grid.innerHTML = pageItems.map(function (o) {
         return '<article class="pf-card" tabindex="0" data-i="' + o.i + '" role="button" aria-label="View ' + esc(o.p.title) + '">' +
-          '<div class="pf-media">' + thumb(o.p, o.i) +
-          '<div class="pf-ov"><span class="ov-tag">' + esc(o.p.tag) + '</span><span class="ov-cta">View project <i>' + icon('ne') + '</i></span></div></div>' +
-          '<div class="pf-info"><div><small>' + esc(o.p.tag) + '</small><b>' + esc(o.p.title) + '</b></div><span class="pf-go">' + icon('ne') + '</span></div></article>';
+          '<div class="pf-media">' + thumb(o.p) + '</div>' +
+          '<div class="pf-info"><div><small>' + esc(o.p.tag) + '</small><b>' + esc(o.p.title) + '</b></div><span class="pf-go" aria-hidden="true">' + icon('ne') + '</span></div></article>';
       }).join('');
-      count.textContent = 'Showing ' + list.length + ' project' + (list.length === 1 ? '' : 's');
+      count.textContent = list.length
+        ? 'Showing ' + (start + 1) + '–' + Math.min(start + pageSize, list.length) + ' of ' + list.length + ' projects'
+        : 'Showing 0 projects';
       empty.style.display = list.length ? 'none' : 'block';
+      pagination.hidden = list.length <= pageSize;
+      pagination.innerHTML = list.length > pageSize
+        ? '<button class="pf-page pf-page-step" type="button" data-page="' + Math.max(1, currentPage - 1) + '" aria-label="Previous page"' + (currentPage === 1 ? ' disabled' : '') + '>Previous</button>' +
+          Array.from({ length: pageCount }, function (_, i) {
+            var n = i + 1;
+            return '<button class="pf-page' + (n === currentPage ? ' is-current' : '') + '" type="button" data-page="' + n + '" aria-label="Page ' + n + '"' + (n === currentPage ? ' aria-current="page"' : '') + '>' + n + '</button>';
+          }).join('') +
+          '<button class="pf-page pf-page-step" type="button" data-page="' + Math.min(pageCount, currentPage + 1) + '" aria-label="Next page"' + (currentPage === pageCount ? ' disabled' : '') + '>Next</button>'
+        : '';
     }
 
     tabsEl.addEventListener('click', function (e) {
       var b = e.target.closest('.tab');
       if (!b) return;
       cur = b.getAttribute('data-cat');
+      currentPage = 1;
       $$('.tab', tabsEl).forEach(function (t) { t.classList.toggle('active', t === b); });
       draw();
     });
-    q.addEventListener('input', draw);
+    q.addEventListener('input', function () { currentPage = 1; draw(); });
+    pagination.addEventListener('click', function (e) {
+      var button = e.target.closest('[data-page]');
+      if (!button || button.disabled) return;
+      currentPage = Number(button.getAttribute('data-page'));
+      draw();
+    });
 
     var params = new URLSearchParams(window.location.search);
     if (params.get('q')) q.value = params.get('q');
@@ -348,8 +402,9 @@
     lb.addEventListener('click', function (e) { if (e.target === lb || e.target.closest('.lb-close')) closeLb(); });
     function openLb(i) {
       var p = D.portfolio[i];
-      lb.innerHTML = '<div class="lb-card"><button class="icon-btn lb-close" aria-label="Close">' + icon('close') + '</button>' + thumb(p, i, true) +
-        '<div class="lb-body"><small style="color:var(--accent);font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.7rem">' + esc(p.tag) + '</small><h3>' + esc(p.title) + '</h3></div></div>';
+      lb.setAttribute('aria-labelledby', 'projectTitle');
+      lb.innerHTML = '<div class="lb-card"><button class="icon-btn lb-close" aria-label="Close">' + icon('close') + '</button>' + thumb(p) +
+        '<div class="lb-body"><small style="color:var(--accent);font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.7rem">' + esc(p.tag) + '</small><h3 id="projectTitle">' + esc(p.title) + '</h3></div></div>';
       lb.classList.add('open');
     }
     grid.addEventListener('click', function (e) { var c = e.target.closest('.pf-card'); if (c) openLb(+c.getAttribute('data-i')); });
@@ -357,41 +412,49 @@
     draw();
   }
 
-  /* ---------- welcome popup (home) ---------- */
-  var popup;
-  function closePopup() {
-    if (!popup || !popup.classList.contains('open')) return;
-    popup.classList.remove('open');
-    document.body.classList.remove('no-scroll');
-    try { sessionStorage.setItem('marshall_popup_seen', '1'); } catch (e) {}
-    setTimeout(function () { if (popup && popup.parentNode) popup.parentNode.removeChild(popup); popup = null; }, 450);
-  }
-  function initPopup() {
+  function initWelcomeGate() {
     if (page !== 'home') return;
-    var def = (window.MarshallStore && window.MarshallStore.defaults.settings.popup) || {};
-    var p = Object.assign({}, def, (D.settings || {}).popup || {});
-    if (!p.enabled) return;
-    var force = /[?&]popup=1/.test(window.location.search);
-    try { if (!force && sessionStorage.getItem('marshall_popup_seen')) return; } catch (e) {}
 
-    setTimeout(function () {
-      popup = document.createElement('div');
-      popup.className = 'popup';
-      popup.setAttribute('role', 'dialog'); popup.setAttribute('aria-modal', 'true'); popup.setAttribute('aria-labelledby', 'popTitle');
-      popup.innerHTML =
-        '<div class="popup-card"><button class="icon-btn popup-x" aria-label="Close">' + icon('close') + '</button>' +
-        '<div class="popup-art" aria-hidden="true">' + BULB.replace('<svg', '<svg style="color:#fff"') + '</div>' +
-        '<div class="popup-body"><span class="eyebrow">' + esc(p.eyebrow) + '</span>' +
-        '<h2 id="popTitle">' + esc(p.title) + (p.emphasis ? ' <em>' + esc(p.emphasis) + '</em>' : '') + '</h2>' +
-        '<p>' + esc(p.text) + '</p>' +
-        '<div class="popup-actions"><a class="btn" href="' + esc(p.link) + '">' + esc(p.cta) + icon('arrow') + '</a>' +
-        '<button class="btn ghost" type="button" data-close>Maybe later</button></div>' +
-        '<p class="popup-fine">We usually reply within one working day.</p></div></div>';
-      document.body.appendChild(popup);
-      popup.addEventListener('click', function (e) { if (e.target === popup || e.target.closest('.popup-x') || e.target.closest('[data-close]')) closePopup(); });
-      document.body.classList.add('no-scroll');
-      requestAnimationFrame(function () { requestAnimationFrame(function () { popup.classList.add('open'); var b = $('.btn', popup); if (b) b.focus(); }); });
-    }, force ? 300 : 1800);
+    var background = Array.prototype.slice.call(document.body.children).map(function (el) {
+      return { element: el, inert: el.inert };
+    });
+    background.forEach(function (item) { item.element.inert = true; });
+
+    var gate = document.createElement('div');
+    gate.className = 'welcome-gate';
+    gate.setAttribute('role', 'dialog');
+    gate.setAttribute('aria-modal', 'true');
+    gate.setAttribute('aria-labelledby', 'welcomeGateTitle');
+    gate.innerHTML =
+      '<div class="welcome-gate-doors" aria-hidden="true">' +
+      '<span class="welcome-gate-door"></span></div>' +
+      '<div class="welcome-gate-content">' +
+      '<span class="welcome-gate-kicker"><i></i> MARSHALL ADVERTISING | <span>A WORLD OF IDEAS</span></span>' +
+      '<h1 id="welcomeGateTitle">Welcome to <em>Marshall</em> Advertising</h1>' +
+      '<p class="welcome-gate-copy">Click anywhere to enter.</p>' +
+      '<button class="welcome-gate-action" type="button">Enter the website <span aria-hidden="true">↗</span></button>' +
+      '</div>';
+    document.body.appendChild(gate);
+    document.body.classList.add('no-scroll');
+
+    var action = $('.welcome-gate-action', gate);
+    var opening = false;
+    gate.addEventListener('click', function () {
+      if (opening) return;
+      opening = true;
+      gate.classList.add('is-opening');
+      gate.setAttribute('aria-busy', 'true');
+      action.disabled = true;
+      window.setTimeout(function () {
+        gate.classList.add('is-leaving');
+        document.body.classList.remove('no-scroll');
+        background.forEach(function (item) { item.element.inert = item.inert; });
+        window.setTimeout(function () {
+          if (gate.parentNode) gate.parentNode.removeChild(gate);
+        }, 400);
+      }, 1350);
+    });
+    action.focus();
   }
 
   /* ---------- contact form ---------- */
@@ -477,9 +540,9 @@
   initFx();
   initReveal();
   initToTop();
-  initPopup();
+  initWelcomeGate();
 
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') { closeSearch(); closeLb(); closePopup(); closeDrawer(); }
+    if (e.key === 'Escape') { closeSearch(); closeLb(); closeDrawer(); }
   });
 })();
